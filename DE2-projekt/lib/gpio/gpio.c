@@ -74,7 +74,7 @@ void GPIO_write_high(volatile uint8_t *reg, uint8_t pin)
  * Function: GPIO_read()
  * Purpose:  Read a value from input pin.
  * Input(s): reg - Address of Pin Register, such as &PINB
- *           pin - Pin  designation in the interval 0 to 7
+ *           pin - Pin designation in the interval 0 to 7
  * Returns:  Pin value
  **********************************************************************/
 uint8_t GPIO_read(volatile uint8_t *reg, uint8_t pin)
