@@ -84,7 +84,7 @@ uint8_t GPIO_read(volatile uint8_t *reg, uint8_t pin)
     temp = *reg & (1<<pin);
 
     if (temp != 0) {
-        return 1;
+        return temp;
     }
     else {
         return 0;

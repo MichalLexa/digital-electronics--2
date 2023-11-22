@@ -12,13 +12,22 @@
 #include <UART.h>           // Peter Fleury's UART library
 #include <stdlib.h>         // C library. Needed for number conversions
 #include <gpio.h>
-
+// Vzduch 920 - max
+//voda 730 - min
 int main(void)
 {
   uart_init(UART_BAUD_SELECT(9600, F_CPU));
-  //GPIO_mode_input_pullup(&PORTC, PC0);
-  uart_puts("test");
+  GPIO_mode_input_pullup(&PORTC, PC0);
   
+     ADMUX = ADMUX | (1<<REFS0);
+    // Select input channel ADC0 (voltage divider pin)
+    ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2 | 1<<MUX1 | 1<<MUX0);
+    // Enable ADC module
+    ADCSRA = ADCSRA | (1<<ADEN);
+    // Enable conversion complete interrupt
+    ADCSRA = ADCSRA | (1<<ADIE);
+    // Set clock prescaler to 128
+    ADCSRA = ADCSRA | (1<<ADPS2 | 1<<ADPS1 | 1<<ADPS0);
 
   TIM1_OVF_1SEC;
   TIM1_OVF_ENABLE;
@@ -36,12 +45,16 @@ int main(void)
 
 ISR(TIMER1_OVF_vect)
 {
-  uint8_t hum;
+  ADCSRA = ADCSRA | (1<<ADSC);
+ 
+  
+}
+ISR(ADC_vect)
+{
+   uint16_t hum;
   char string[8];
-  hum = GPIO_read(&DDRC, PC0);
-
-  
-    itoa(hum, string, 2);
-    uart_puts(hum);
-  
+  hum =ADC;
+  itoa(hum, string, 10);  
+  uart_puts(string);
+  uart_puts("\n");
 }
