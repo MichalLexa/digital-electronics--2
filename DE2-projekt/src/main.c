@@ -13,6 +13,13 @@
 #include <stdlib.h>         // C library. Needed for number conversions
 #include <gpio.h>
 #include <oled.h>
+
+struct DHT_values_structure 
+{
+  uint8_t hum_rel;
+} dht12;
+
+
 // Vzduch 920 - max
 //voda 730 - min
  uint16_t hum;
@@ -34,12 +41,15 @@ int main(void)
     // Set clock prescaler to 128
     ADCSRA = ADCSRA | (1<<ADPS2 | 1<<ADPS1 | 1<<ADPS0);
 
+
+
+
   TIM1_OVF_1SEC;
   TIM1_OVF_ENABLE;
   
   oled_init(OLED_DISP_ON);
   
-  
+
 
   sei();
   
@@ -54,8 +64,17 @@ int main(void)
 ISR(TIMER1_OVF_vect)
 {
   ADCSRA = ADCSRA | (1<<ADSC);
- 
   
+  if (dht12.hum_rel < 40) 
+  {
+    PORTB = PORTB ^ (1<<LED_GREEN);
+  }
+  else 
+  {
+    PORTB = PORTB ^ (0<<LED_GREEN);
+
+  }
+ 
 }
 ISR(ADC_vect)
 {
@@ -63,7 +82,6 @@ ISR(ADC_vect)
   char string[8];
   hum = ADC;
   hum = (920-hum)*100/270;
-
   itoa(hum, string, 10);  
   uart_puts(string);
   uart_puts("\n");
@@ -75,20 +93,17 @@ ISR(ADC_vect)
   oled_puts("%");
   oled_gotoxy(0,5);
   oled_puts("Watering: ");
-  if (hum<40)
+  if (hum>40)
   {
-    oled_puts("ON");
-    
+    oled_puts("OFF");
+    //PORTB = PORTB ^ (0<<LED_GREEN);
   }
    else{
-     oled_puts("OFF"); 
+     oled_puts("ON"); 
+     //PORTB = PORTB ^ (0<<LED_GREEN);
     }
-
+  dht12.hum_rel = hum;
   oled_display();
-    if (hum < 40) 
-  {
-    PORTB = PORTB ^ (1<<LED_GREEN);
-  }
-
 
 }
+
