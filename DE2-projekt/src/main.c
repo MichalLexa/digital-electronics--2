@@ -19,16 +19,20 @@ struct DHT_values_structure
   uint8_t hum_rel;
 } dht12;
 
+  
 
 // Vzduch 920 - max
 //voda 730 - min
  uint16_t hum;
+
+ 
 int main(void)
 {
   GPIO_mode_output(&DDRB, LED_GREEN);
 
   uart_init(UART_BAUD_SELECT(9600, F_CPU));
   
+
   
   // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
     ADMUX = ADMUX | (1<<REFS0);
@@ -55,7 +59,6 @@ int main(void)
   
   while (1)
   {
-
 
   }
   return 0;
