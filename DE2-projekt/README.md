@@ -16,7 +16,7 @@ Cílem projektu bylo monitorovat vlhkost rostliny, zobrazovat ji na OLED displej
 
 Senzor Capacitive Soil Moisture Sensor v1.2 užívaný pro měření vlhkosti má 3 piny - ground (0 V), VCC (3,3-5 V) a analog output - ty je potřeba správně připojit k mikrokontroléru. To lze provést například tak, jak je uvedeno na obrázku níže. Pro zobrazování vlhkosti je třeba připojit rovněž OLED displej a pro spouštění systému pak spínací relé. LED dioda se externě připojovat nemusí, poněvadž ji můžeme najít na Arduinu. Data do mikrokontroléru putují v podobě analogového signálu, jehož napěťové hodnoty jsou závislé na měřené vlhkosti. 
 
-![Schematic]([Schematic.png](https://github.com/240609/DE2/blob/main/Schematic.png))
+![Schematic]([(https://github.com/240609/DE2/blob/main/Schematic.png](https://github.com/240609/DE2/blob/main/Schematic.png))
 
 ## Softwarový popis
 
