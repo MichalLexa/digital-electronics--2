@@ -18,6 +18,8 @@ Senzor Capacitive Soil Moisture Sensor v1.2 užívaný pro měření vlhkosti m�
 
 ![Schematic](https://github.com/240609/DE2/blob/main/Schematic.png)
 
+
+![zapojeni](zapojeni.jpeg)
 ## Softwarový popis
 
 O správnou činnost systému se stará Arduino Uno, jež je řízeno tímhle programem - https://github.com/MichalLexa/digital-electronics--2/blob/main/DE2-projekt/src/main.c. Nutné je použití knihoven pro timer, GPIO, UART a OLED. V samotném hlavním zdrojovém souboru je realizován analogově-digitální převodník, jenž řídí převod analogových napěťových hodnot do digitálních hodnot vlhkosti, které jsou následně normovány. V tomtéž souboru je vyřešeno i zobrazování na displej a indikování pomocí LED diody. Záznam dat je prováděn pomocí programu Microsoft Excel. Změřená data se automaticky vykreslují do grafu.
